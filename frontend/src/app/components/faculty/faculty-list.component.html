@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>Faculty List</h2>
+  <button class="btn btn-primary mb-3" routerLink="/faculty/add">Add New Faculty Member</button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of faculty">
+        <td>{{ member.id }}</td>
+        <td>{{ member.firstName }}</td>
+        <td>{{ member.lastName }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.department }}</td>
+        <td>{{ member.designation }}</td>
+        <td>
+          <button class="btn btn-sm btn-info me-2" [routerLink]="['/faculty/edit', member.id]">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteFaculty(member.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

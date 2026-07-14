@@ -1,0 +1,190 @@
+<div class="container-fluid enrollment-page">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Enrollment management</p>
+      <h2>Courses, grades, and student GPA</h2>
+    </div>
+  </div>
+
+  <section class="filter-bar">
+    <div class="filter-field">
+      <label for="studentNameFilter" class="form-label">Student name</label>
+      <input
+        id="studentNameFilter"
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchFilters.studentName"
+        placeholder="Search by name"
+      >
+    </div>
+
+    <div class="filter-field">
+      <label for="courseCodeFilter" class="form-label">Course</label>
+      <select id="courseCodeFilter" class="form-select" [(ngModel)]="searchFilters.courseCode">
+        <option [ngValue]="''">All courses</option>
+        <option *ngFor="let course of courses" [ngValue]="course.courseCode">
+          {{ course.courseCode }} - {{ course.title }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="dateFromFilter" class="form-label">From date</label>
+      <input id="dateFromFilter" type="date" class="form-control" [(ngModel)]="searchFilters.dateFrom">
+    </div>
+
+    <div class="filter-field">
+      <label for="dateToFilter" class="form-label">To date</label>
+      <input id="dateToFilter" type="date" class="form-control" [(ngModel)]="searchFilters.dateTo">
+    </div>
+
+    <div class="filter-actions">
+      <button class="btn btn-primary" (click)="applyFilters()">Search</button>
+      <button class="btn btn-outline-secondary" (click)="resetFilters()">Reset</button>
+    </div>
+  </section>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+  <div class="summary-grid">
+    <section class="panel">
+      <h3>Enroll student</h3>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="studentSelect" class="form-label">Student</label>
+          <select
+            id="studentSelect"
+            class="form-select"
+            [(ngModel)]="selectedStudentId"
+            (ngModelChange)="onSelectedStudentChange($event)"
+          >
+            <option [ngValue]="null">Select student</option>
+            <option *ngFor="let student of students" [ngValue]="student.id">
+              {{ student.firstName }} {{ student.lastName }} ({{ student.studentId }})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="courseSelect" class="form-label">Course</label>
+          <select id="courseSelect" class="form-select" [(ngModel)]="selectedCourseId">
+            <option [ngValue]="null">Select course</option>
+            <option *ngFor="let course of courses" [ngValue]="course.id">
+              {{ course.courseCode }} - {{ course.title }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label for="gradeSelect" class="form-label">Grade</label>
+          <select id="gradeSelect" class="form-select" [(ngModel)]="newGrade">
+            <option [ngValue]="''">No grade</option>
+            <option *ngFor="let option of gradeOptions" [ngValue]="option">{{ option }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+          <button
+            class="btn btn-primary w-100"
+            (click)="enrollStudent()"
+            [disabled]="!selectedStudentId || !selectedCourseId"
+          >
+            Enroll
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3>GPA snapshot</h3>
+      <ng-container *ngIf="selectedStudentGpa as gpa; else gpaPrompt">
+        <div class="gpa-block">
+          <div class="gpa-value">{{ gpa.gpa === null ? 'N/A' : (gpa.gpa | number:'1.2-2') }}</div>
+          <div class="gpa-meta">{{ gpa.studentName }} | {{ gpa.studentNumber }}</div>
+          <div class="gpa-meta">{{ gpa.gradedEnrollments }} graded courses, {{ gpa.gradedCredits }} credits</div>
+        </div>
+      </ng-container>
+      <ng-template #gpaPrompt>
+        <div class="empty-panel">No student selected.</div>
+      </ng-template>
+
+      <div *ngIf="recentGpaUpdate" class="recent-update">
+        <span class="recent-label">Latest update</span>
+        <strong>
+          {{ recentGpaUpdate.studentName }} -
+          {{ recentGpaUpdate.gpa === null ? 'N/A' : (recentGpaUpdate.gpa | number:'1.2-2') }}
+        </strong>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel table-panel">
+    <div class="table-header">
+      <h3>Current enrollments</h3>
+      <span>{{ enrollments.length }} records</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover enrollment-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Grade</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoadingEnrollments">
+            <td colspan="6" class="empty-state">Loading enrollments...</td>
+          </tr>
+          <tr *ngFor="let enrollment of enrollments">
+            <td>{{ enrollment.id }}</td>
+            <td>
+              <div class="student-name">
+                {{ enrollment.student.firstName }} {{ enrollment.student.lastName }}
+              </div>
+              <div class="student-meta">{{ enrollment.student.studentId }}</div>
+            </td>
+            <td>
+              <div class="course-name">{{ enrollment.course.courseCode }}</div>
+              <div class="student-meta">{{ enrollment.course.title }}</div>
+            </td>
+            <td>{{ enrollment.enrollmentDate | date:'mediumDate' }}</td>
+            <td class="grade-cell">
+              <select
+                class="form-select form-select-sm"
+                [(ngModel)]="editableGrades[enrollment.id!]"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option [ngValue]="''">No grade</option>
+                <option *ngFor="let option of gradeOptions" [ngValue]="option">{{ option }}</option>
+              </select>
+            </td>
+            <td class="action-cell">
+              <button
+                class="btn btn-sm btn-outline-primary me-2"
+                (click)="saveGrade(enrollment)"
+                [disabled]="isSavingGradeId === enrollment.id"
+              >
+                Save
+              </button>
+              <a
+                class="btn btn-sm btn-outline-secondary me-2"
+                [routerLink]="['/students', enrollment.student.id!, 'dashboard']"
+              >
+                Dashboard
+              </a>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteEnrollment(enrollment.id)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoadingEnrollments && enrollments.length === 0">
+            <td colspan="6" class="empty-state">No enrollments found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

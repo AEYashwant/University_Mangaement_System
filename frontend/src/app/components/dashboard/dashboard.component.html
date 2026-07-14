@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="jumbotron bg-light p-5 rounded shadow-sm">
+    <h1 class="display-4">Welcome to the UMS Dashboard!</h1>
+    <p class="lead">
+      You are logged in as **{{ currentUser?.username }}** with the role **{{ currentUser?.role }}**.
+    </p>
+    <hr class="my-4">
+    <p>Use the navigation bar above to manage students, courses, faculty, and enrollments.</p>
+    
+    <div class="row mt-5">
+      <div class="col-md-4 mb-3">
+        <div class="card text-center bg-primary text-white">
+          <div class="card-body">
+            <h5 class="card-title">Student Management</h5>
+            <p class="card-text">View, Add, Edit, or Delete student records.</p>
+            <a routerLink="/students" class="btn btn-light btn-sm">Go to Students</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card text-center bg-success text-white">
+          <div class="card-body">
+            <h5 class="card-title">Course Catalog</h5>
+            <p class="card-text">Manage the list of available courses.</p>
+            <a routerLink="/courses" class="btn btn-light btn-sm">Go to Courses</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card text-center bg-info text-white">
+          <div class="card-body">
+            <h5 class="card-title">Enrollment</h5>
+            <p class="card-text">Link students to courses and track grades.</p>
+            <a routerLink="/enrollment" class="btn btn-light btn-sm">Go to Enrollment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

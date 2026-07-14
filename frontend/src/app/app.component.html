@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="authService.isLoggedIn()">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/dashboard">UMS Admin</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/students" routerLinkActive="active">Students</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/faculty" routerLinkActive="active">Faculty</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/enrollment" routerLinkActive="active">Enrollment</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <span class="navbar-text me-3">
+          Welcome, {{ authService.currentUserValue?.username }}
+        </span>
+        <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="app-content">
+  <router-outlet></router-outlet>
+</div>

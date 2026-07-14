@@ -1,0 +1,114 @@
+<div class="student-dashboard container-fluid">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Student dashboard</p>
+      <h1 *ngIf="dashboard; else defaultTitle">
+        {{ dashboard.firstName }} {{ dashboard.lastName }}
+      </h1>
+      <ng-template #defaultTitle>
+        <h1>Student dashboard</h1>
+      </ng-template>
+      <p *ngIf="dashboard" class="subtitle">
+        {{ dashboard.studentNumber }} | {{ dashboard.major }}
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <a routerLink="/students" class="btn btn-outline-secondary">Back to students</a>
+      <a routerLink="/enrollment" class="btn btn-primary">Open enrollments</a>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="alert alert-info">Loading student dashboard...</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <ng-container *ngIf="dashboard as student">
+    <div class="metric-grid">
+      <section class="metric-card">
+        <span class="metric-label">GPA</span>
+        <strong class="metric-value">{{ student.gpa === null ? 'N/A' : (student.gpa | number:'1.2-2') }}</strong>
+        <span class="metric-meta">Weighted by graded credits</span>
+      </section>
+      <section class="metric-card">
+        <span class="metric-label">Courses</span>
+        <strong class="metric-value">{{ student.totalEnrollments }}</strong>
+        <span class="metric-meta">All enrollments</span>
+      </section>
+      <section class="metric-card">
+        <span class="metric-label">Credits</span>
+        <strong class="metric-value">{{ student.totalCredits }}</strong>
+        <span class="metric-meta">Attempted credits</span>
+      </section>
+      <section class="metric-card">
+        <span class="metric-label">Graded</span>
+        <strong class="metric-value">{{ student.gradedEnrollments }}</strong>
+        <span class="metric-meta">{{ student.gradedCredits }} graded credits</span>
+      </section>
+      <section class="metric-card">
+        <span class="metric-label">Ungraded</span>
+        <strong class="metric-value">{{ student.ungradedEnrollments }}</strong>
+        <span class="metric-meta">Awaiting a posted grade</span>
+      </section>
+    </div>
+
+    <div class="content-grid">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Enrollment history</h2>
+          <span>{{ student.enrollments.length }} records</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table dashboard-table">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Credits</th>
+                <th>Date</th>
+                <th>Grade</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let enrollment of student.enrollments">
+                <td>
+                  <div class="course-title">{{ enrollment.courseCode }}</div>
+                  <div class="course-subtitle">{{ enrollment.courseTitle }}</div>
+                </td>
+                <td>{{ enrollment.credits }}</td>
+                <td>{{ enrollment.enrollmentDate | date:'mediumDate' }}</td>
+                <td>{{ enrollment.grade || 'N/A' }}</td>
+                <td>{{ enrollment.gradePoints === null ? 'N/A' : (enrollment.gradePoints | number:'1.1-2') }}</td>
+              </tr>
+              <tr *ngIf="student.enrollments.length === 0">
+                <td colspan="5" class="empty-state">No enrollments recorded.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Profile</h2>
+        <dl class="profile-list">
+          <div>
+            <dt>Email</dt>
+            <dd>{{ student.email || 'N/A' }}</dd>
+          </div>
+          <div>
+            <dt>Major</dt>
+            <dd>{{ student.major || 'N/A' }}</dd>
+          </div>
+          <div>
+            <dt>Student number</dt>
+            <dd>{{ student.studentNumber }}</dd>
+          </div>
+          <div>
+            <dt>Latest enrollment</dt>
+            <dd>{{ student.latestEnrollmentDate ? (student.latestEnrollmentDate | date:'mediumDate') : 'N/A' }}</dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </ng-container>
+</div>

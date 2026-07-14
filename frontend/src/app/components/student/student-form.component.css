@@ -1,0 +1,106 @@
+/* ====== Student Form Page Styling ====== */
+
+.container {
+    max-width: 650px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 2rem 2.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
+}
+
+/* Page Title */
+h2 {
+    text-align: center;
+    color: #2b3a55;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+/* Label Styling */
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+/* Input Styling */
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus Effect */
+.form-control:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.2);
+}
+
+/* Invalid Field */
+.is-invalid {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+}
+
+/* Submit & Cancel Buttons */
+.btn {
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Success (Create/Update) Button */
+.btn-success {
+    background-color: #2e8b57;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #256f46;
+    transform: translateY(-2px);
+}
+
+/* Cancel Button */
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Add subtle spacing between buttons */
+.ms-2 {
+    margin-left: 0.75rem !important;
+}
+
+/* Small error message below inputs (optional if added later) */
+.invalid-feedback {
+    font-size: 0.85rem;
+    color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+}

@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit Faculty Member' : 'Add New Faculty Member' }}</h2>
+
+  <form [formGroup]="facultyForm" (ngSubmit)="onSubmit()">
+    
+    <div class="mb-3">
+      <label for="firstName" class="form-label">First Name</label>
+      <input id="firstName" type="text" formControlName="firstName" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input id="lastName" type="text" formControlName="lastName" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" type="email" formControlName="email" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="department" class="form-label">Department</label>
+      <input id="department" type="text" formControlName="department" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="designation" class="form-label">Designation</label>
+      <input id="designation" type="text" formControlName="designation" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="facultyForm.invalid">
+      {{ isEditMode ? 'Update Member' : 'Create Member' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" routerLink="/faculty">Cancel</button>
+
+  </form>
+</div>

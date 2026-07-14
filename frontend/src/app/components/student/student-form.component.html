@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit Student' : 'Add New Student' }}</h2>
+
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="firstName" class="form-label">First Name</label>
+      <input
+        id="firstName"
+        type="text"
+        formControlName="firstName"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched
+        }"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input
+        id="lastName"
+        type="text"
+        formControlName="lastName"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched
+        }"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': studentForm.get('email')?.invalid && studentForm.get('email')?.touched
+        }"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="major" class="form-label">Major</label>
+      <input
+        id="major"
+        type="text"
+        formControlName="major"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': studentForm.get('major')?.invalid && studentForm.get('major')?.touched
+        }"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="studentId" class="form-label">Student ID</label>
+      <input
+        id="studentId"
+        type="text"
+        formControlName="studentId"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            studentForm.get('studentId')?.invalid && studentForm.get('studentId')?.touched
+        }"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="studentForm.invalid">
+      {{ isEditMode ? 'Update Student' : 'Create Student' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" routerLink="/students">Cancel</button>
+  </form>
+</div>

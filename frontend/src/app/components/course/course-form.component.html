@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit Course' : 'Add New Course' }}</h2>
+
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+    
+    <div class="mb-3">
+      <label for="courseCode" class="form-label">Course Code (e.g., CS101)</label>
+      <input id="courseCode" type="text" formControlName="courseCode" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Course Title</label>
+      <input id="title" type="text" formControlName="title" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="credits" class="form-label">Credits</label>
+      <input id="credits" type="number" formControlName="credits" class="form-control" required min="1" max="10">
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" formControlName="description" class="form-control" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="courseForm.invalid">
+      {{ isEditMode ? 'Update Course' : 'Create Course' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" routerLink="/courses">Cancel</button>
+
+  </form>
+</div>

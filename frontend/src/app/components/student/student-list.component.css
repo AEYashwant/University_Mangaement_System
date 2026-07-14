@@ -1,0 +1,118 @@
+/* ====== Student List Page Styling ====== */
+
+.container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    font-family: "Poppins", sans-serif;
+}
+
+/* Page Heading */
+h2 {
+    color: #2b3a55;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Add Button */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    color: #2b3a55;
+    font-weight: 600;
+    padding: 0.9rem;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    padding: 0.9rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Table Row Hover */
+.table tbody tr:hover {
+    background-color: #f1f7ff;
+    transition: background-color 0.2s ease;
+}
+
+/* Action Buttons */
+.btn-sm {
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 10px;
+    transition: all 0.2s ease;
+}
+
+/* Edit Button */
+.btn-info {
+    background-color: #17a2b8;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    transform: translateY(-2px);
+}
+
+/* Delete Button */
+.btn-danger {
+    background-color: #e74c3c;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        padding: 0.5rem;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.6rem 0.8rem;
+        border: none;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2b3a55;
+    }
+}

@@ -1,0 +1,114 @@
+/* Container Styling */
+.container {
+    max-width: 650px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #004e92;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+/* Form Label */
+.form-label {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Input Styling */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 0.6rem 0.9rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #004e92;
+    box-shadow: 0 0 6px rgba(0, 78, 146, 0.3);
+    outline: none;
+}
+
+/* Button Styling */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.6rem 1.4rem;
+    transition: all 0.3s ease;
+}
+
+/* Submit Button */
+.btn-success {
+    background-color: #004e92;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #003874;
+    transform: translateY(-2px);
+}
+
+/* Cancel Button */
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Margin spacing */
+.mb-3 {
+    margin-bottom: 1.2rem !important;
+}
+
+.ms-2 {
+    margin-left: 0.5rem !important;
+}
+
+/* Form hover animation */
+form {
+    transition: transform 0.2s ease;
+}
+
+form:hover {
+    transform: scale(1.01);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-secondary.ms-2 {
+        margin-left: 0 !important;
+    }
+}
